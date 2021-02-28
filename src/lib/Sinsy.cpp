@@ -47,6 +47,7 @@
 #include "XmlReader.h"
 #include "XmlWriter.h"
 #include "InputFile.h"
+#include "InputBuffer.h"
 #include "OutputFile.h"
 #include "WritableStrStream.h"
 #include "LabelStream.h"
@@ -402,11 +403,13 @@ public:
 
    //! set languages
    bool setLanguages(const std::string& languages, const std::string& dirPath) {
+      std::cout << "languages: " << languages << std::endl;
       return converter.setLanguages(languages, dirPath);
    }
 
    //! load voice files
    bool loadVoices(const std::vector<std::string>& voices) {
+      std::cout << "loading voices 3" << std::endl;
       return engine.load(voices);
    }
 
@@ -517,8 +520,19 @@ public:
       score.clear();
    }
 
-   //! load score from MusicXML
+   //! load score from MusicXML file
    bool loadScoreFromMusicXML(InputFile& xml) {
+      XmlReader xmlReader;
+      if (!xmlReader.readXml(xml)) {
+         ERR_MSG("Cannot parse Xml file");
+         return false;
+      }
+      score << xmlReader;
+      return true;
+   }
+
+   //! load score from MusicXML buffer
+   bool loadScoreFromMusicXML(InputBuffer& xml) {
       XmlReader xmlReader;
       if (!xmlReader.readXml(xml)) {
          ERR_MSG("Cannot parse Xml file");
@@ -591,6 +605,7 @@ Sinsy::~Sinsy()
  */
 bool Sinsy::setLanguages(const std::string& languages, const std::string& dirPath)
 {
+   std::cout << "setting languages......" << std::endl;
    try {
       if (!impl->setLanguages(languages, dirPath)) {
          return false;
@@ -973,7 +988,7 @@ bool Sinsy::clearScore()
 }
 
 /*!
- load score from MusicXML
+ load score from MusicXML file
  */
 bool Sinsy::loadScoreFromMusicXML(const std::string& xml)
 {
@@ -984,6 +999,23 @@ bool Sinsy::loadScoreFromMusicXML(const std::string& xml)
          return false;
       }
       if (!impl->loadScoreFromMusicXML(xmlFile)) {
+         return false;
+      }
+   } catch (const std::exception& ex) {
+      ERR_MSG("Exception in API " << FUNC_NAME("") << " : " << ex.what());
+      return false;
+   }
+   return true;
+}
+
+/*!
+ load score from MusicXML buffer
+ */
+bool Sinsy::loadScoreFromMusicXMLData(const std::string& xmlFileContent)
+{
+   try {
+      InputBuffer xmlData(xmlFileContent);
+      if (!impl->loadScoreFromMusicXML(xmlData)) {
          return false;
       }
    } catch (const std::exception& ex) {

@@ -240,6 +240,9 @@ public:
    //! load score from MusicXML
    bool loadScoreFromMusicXML(const std::string& xml);
 
+   //! load score from MusicXML data
+   bool loadScoreFromMusicXMLData(const std::string& data);
+
    //! save score to MusicXML
    bool saveScoreToMusicXML(const std::string& xml, ClefType clefType = CLEFTYPE_DEFAULT);
 

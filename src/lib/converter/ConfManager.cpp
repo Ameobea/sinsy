@@ -132,6 +132,7 @@ bool ConfManager::setLanguages(const std::string& languages, const std::string& 
          eJConf = new JConf(EUC_JP_STRS);
 
          // utf-8
+         std::cout << "READING CONFIG: " << TABLE_UTF_8 << ", " << CONF_UTF_8 << ", " << MACRON_TABLE << std::endl;
          if (!uJConf->read(TABLE_UTF_8, CONF_UTF_8, MACRON_TABLE)) {
             ERR_MSG("Cannot read Japanese table or config or macron file : " << TABLE_UTF_8 << ", " << CONF_UTF_8);
             delete uJConf;

@@ -94,6 +94,8 @@ libSinsy_a_SOURCES = Sinsy.cpp \
                      ./util/IWritableStream.h \
                      ./util/InputFile.cpp \
                      ./util/InputFile.h \
+                     ./util/InputBuffer.cpp \
+                     ./util/InputBuffer.h \
                      ./util/MacronTable.cpp \
                      ./util/MacronTable.h \
                      ./util/MultibyteCharRange.cpp \

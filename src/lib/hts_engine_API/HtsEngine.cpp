@@ -103,15 +103,19 @@ bool HtsEngine::load(const std::vector<std::string>& voices)
    char **fn_voices = NULL;
 
    // check
-   if (voices.size() == 0)
+   if (voices.size() == 0) {
+      std::cout << "no voices to load..." << std::endl;
       return false;
+   }
 
    // get HTS voice file names
    fn_voices = (char **) malloc(voices.size() * sizeof(char *));
    if (NULL == fn_voices) {
       throw std::bad_alloc();
    }
+   std::cout << "LOADING VOICES..." << std::endl;
    for(i = 0; i < voices.size(); i++) {
+      std::cout << "Loading Voice: " << voices[i] << std::endl;
       fn_voices[i] = strdup(voices[i].c_str());
    }
 

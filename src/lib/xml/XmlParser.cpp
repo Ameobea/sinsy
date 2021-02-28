@@ -45,6 +45,7 @@
 #include <stdexcept>
 #include "XmlParser.h"
 #include "InputFile.h"
+#include "InputBuffer.h"
 #include "util_string.h"
 #include "util_log.h"
 
@@ -62,8 +63,10 @@ char getChar(IReadableStream& stream) throw (StreamException)
    char c = '\0';
    int result = stream.read(static_cast<void*>(&c), 1);
    if (0 == result) {
+      std::cout << "getChar() end of file" << std::endl;
       throw StreamException("getChar() end of file");
    } else if (result < 0) {
+      std::cout << "getChar() error: " << result << std::endl;
       throw StreamException("getChar() error");
    }
    return c;
@@ -75,7 +78,7 @@ char getChar(IReadableStream& stream) throw (StreamException)
 char getNextValidChar(IReadableStream& stream) throw (StreamException)
 {
    for ( ; ; ) {
-      char c(getChar(stream));
+      char c = getChar(stream);
       if (!isBlank(c)) {
          return c;
       }

@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+  <script>
+    var Module = {
+      onRuntimeInitialized: function() {
+        window.Module = Module;
+        console.log('loaded!');
+      }
+    };
+  </script>
+  <script src="a.out.js"></script>
+</html>
