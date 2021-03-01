@@ -1,10 +1,10 @@
 #include "sinsy.h"
+#include <emscripten/bind.h>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <vector>
-#include <emscripten/bind.h>
 
 using namespace emscripten;
 
@@ -13,8 +13,7 @@ int run_sinsy(std::string xmlContent) {
 
   std::string config = "dic";
   std::string languages("j");
-  // std::string voice("nitech_jp_song070_f001.htsvoice");
-  std::string voice("tohoku-f01-happy.htsvoice");
+  std::string voice("voice.htsvoice");
   std::cout << "VOICE: " << voice << std::endl;
   std::vector<std::string> voices;
   voices.push_back(voice);
@@ -33,8 +32,7 @@ int run_sinsy(std::string xmlContent) {
   }
 
   if (!sinsy.loadScoreFromMusicXMLData(xmlContent)) {
-    std::cout << "[ERROR] failed to load score from MusicXML data"
-              << std::endl;
+    std::cout << "[ERROR] failed to load score from MusicXML data" << std::endl;
     return -1;
   }
 
@@ -46,6 +44,4 @@ int run_sinsy(std::string xmlContent) {
   return 0;
 }
 
-EMSCRIPTEN_BINDINGS(sinsy) {
-    function("run_sinsy", &run_sinsy);
-}
+EMSCRIPTEN_BINDINGS(sinsy) { function("run_sinsy", &run_sinsy); }

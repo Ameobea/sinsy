@@ -13,15 +13,14 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 # set the default path for built libraries to the "lib" directory
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
-set(CMAKE_EXECUTABLE_SUFFIX ".html")
 
 # find HTSEngine
 # adapted from https://github.com/r9y9/open_jtalk/blob/1.10/src/CMakeLists.txt
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)
-find_path(HTS_ENGINE_INCLUDE_DIR HTS_engine.h HINTS /home/casey/hts_engine_API/src/include)
+find_path(HTS_ENGINE_INCLUDE_DIR HTS_engine.h HINTS ../../hts_engine_API/src/include)
 message(STATUS "HTS_ENGINE_INCLUDE_DIR=${HTS_ENGINE_INCLUDE_DIR}")
-find_library(HTS_ENGINE_LIB hts_engine_API PATHS /home/casey/hts_engine_API/src/lib)
+find_library(HTS_ENGINE_LIB hts_engine_API PATHS ../../hts_engine_API/src/lib)
 if(NOT HTS_ENGINE_LIB)
   # fallback
   find_library(HTS_ENGINE_LIB HTSEngine)
